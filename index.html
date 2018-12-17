@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <title>Extra Credit 3
+    </title>
+</head>
+<body>
+    <main id="app">
+        <h4 class="welcome-message"> {{ mainmessage }}</h4>
+        <ul>
+            <li v-for="video in videodata">
+                <button :data-video="video.id" v-on:click="fetchMore" class="more-details">More Details...</button>
+                <a :href="video.vid_path" v-on:click="loadMovie">
+                    <img :src="'images/' + video.vid_thumb" alt="">
+                </a>
+                <p class="movie-genre">
+                    {{ video.vid_genre }}
+                </p>  <!-- add a field to the DB (or subquery another table) and plug data in -->
+            </li>
+        </ul>
+
+        <p class="instructions">
+            <i>Click on a poster to preview the movie!</i>
+        </p>
+
+        <section class="hidden-movies" :class="{'show-movie' : showDetails }">
+            <h3 class="movie-title"> {{ videotitle }}</h3>
+            <video :src="'video/' + videosource" autoplay></video>
+            <div class="movie-details">
+                <p> {{ videodescription }} </p>
+            </div>
+        </section>
+
+        <section class="hidden-details" :class="{'show-details' : showLightbox}">
+            <img :src="'images/' + image1" alt="Image">
+            <img :src="'images/' + image2" alt="Image">
+            <p class="movie-details">
+                {{ synopsis }}
+            </p>
+            <a href="#" title="Close" class="modal-close" v-on:click="closeLightbox">Close</a>
+        </section>
+
+        <div class="up-arrow">
+            <span v-on:click="scrollBackUp" :class="{'show-scroller': showDetails }">^</span>
+        </div>
+
+
+    </main>
+    <script src="js/main.js"></script>
+</body>
+</html>
